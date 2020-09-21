@@ -1,84 +1,90 @@
 
-/**
- * Класс продукции со свойствами <b>maker</b> и <b>price</b>.
- * @autor 123
- * @version 2.1
- */
-import java.awt.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.io.*;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.LinkedList;
 
-public class animal extends IOException {
-    public String Name;
 
-    public static void main(String[] args){
-        int left=1;
-        int right=100;
+import javax.sound.sampled.AudioFormat;
+import javax.swing.JComponent;
 
-        int[] mas={45,678,123,89,1,107};
-        Properties pr=new Properties();
-        pr.setProperty("Hello","Privet");
-        Arrays.sort(mas);
-        animal an=new animal();
-        an.Name="Vasya";
-        Scanner sc=new Scanner(System.in);
-        String s=sc.nextLine();
-
-        double m=0;
-        double sm=0;
-        boolean f=false;
-        while(!f) {
-            System.out.println("Введите длину в метрах");
-            m=sc.nextInt();
-            System.out.println("Введите длину в сантиметрах");
-            sm=sc.nextInt();
-            try {
-                if (m < 0 || sm < 0)
-                    throw new IOException("Длина не может быть отрицательной!");
-                f = true;
-            } catch (IOException exc) {
-                System.out.println(exc.getMessage());
-            }
-        }
-        double feet=0;
-        double dm=0;
-        sm+=m*100;
-        sm=sm/2.54;
-        dm=sm;
-        feet=(int)(dm/12);
-        dm-=feet*12;
-        System.out.println("Высота составляет "+feet+" фут и "+dm+" инчей");
-
+/**
+ * A component that displays rectangles and ellipses.
+ */
+class animal
+{
+    public static void main(String[] args) throws Exception {
+        Driver Ivan=new Driver(500,"Razinkin","Ivan");
+        Auto BMV=new Auto("BMV","A6",200,950,2,1000,80);
+        System.out.println(BMV);
+        Pricep pricep=new Pricep(51);
+        System.out.println(pricep);
+        BMV.add_pricep(pricep);
+        BMV.Model="A7";
+        BMV.check_permissible_weight();
+        System.out.println(BMV);
+        System.out.println(Ivan);
+        BMV.add_driver(Ivan);
+        BMV.setMax_speed(21);
+        BMV.check_current_speed();
+        System.out.println(Ivan);
+        System.out.println(BMV);
+        Bus bus=new Bus("Audi","123m",120,1000,20,1200,50,true);
+        System.out.println(bus);
     }
-    static boolean check(String s){
-        try{
-            Integer.parseInt(s);
+    public static void quicksort(int[] a,int left,int right){
+         int l=left,r=right;
+         int pivot=a[l+(r-l)/2];
+         while(l<=r){
+             while(a[l]<pivot) l++;
+             while(a[r]>pivot) r--;
+             if(l<=r){
+                 int t=a[l];
+                 a[l]=a[r];
+                 a[r]=t;
+                 l++;
+                 r--;
+             }
+         }
+         if(left<r)
+             quicksort(a,left,r);
+         if(l<right)
+             quicksort(a,l,right);
+}
+public static void print(int[] a){
+        for(int i=0;i<a.length;i++){
+            System.out.println(a[i]);
         }
-        catch (Exception ex){
-            return false;
-        }
-        return true;
+}
+}
+class Person
+{
+    public String name;
+    public int age;
+    public double height;
+    public boolean married;
+
+    public Person(String n, int a, double h, boolean m)
+    {
+        this.name=n;
+        this.height=h;
+        this.age=a;
+        this.married=m;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    public static void reverse(int[] mas, int l){
-        for(int i=0;i<l/2;i++){
-            int t=mas[l-i-1];
-            mas[l-i-1]=mas[i];
-            mas[i]=t;
-        }
+    public String toString() {
+        return "Person " +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", height=" + height +
+                ", married=" + married;
     }
 }
